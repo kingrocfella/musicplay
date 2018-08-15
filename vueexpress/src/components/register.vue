@@ -1,31 +1,76 @@
 <template>
-    <div>
-        <h1>Register here!!</h1>
-        <input type="email" name="email" id="email" v-model="email"/>
-        <br>
-        <input type="password" name="password" id="password" v-model="password" />
-        <br>
-        <button type="submit" @click="register">Register</button>
+    <div class="register">
+        <h2>REGISTER</h2>
+        <v-form ref="form" v-model="valid" lazy-validation>
+            <div class="error" v-html="error"></div>
+            <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="E-mail"
+            required
+            ></v-text-field>
+            <v-text-field
+            v-model="password"
+            label="Password"
+            type="password"
+            required
+            ></v-text-field>
+            <v-btn
+            :disabled="!valid"
+            @click="register"
+            >
+            submit
+            </v-btn>
+            <v-btn @click="clear">clear</v-btn>
+        </v-form>
     </div>
 </template>
+
 <script>
 import auth from '../../services/auth'
 export default {
     data(){
         return{
             email: '',
-            password: ''
+            password: '',
+            error: '',
+            valid: true,
+            email: '',
+            emailRules: [
+                v => !!v || 'E-mail is required',
+                v => /.+@.+/.test(v) || 'E-mail must be valid'
+            ]
         }
     },
     methods: {
         async register(){
-            await auth.register({
-                "email": this.email,
-                "password": this.password
-            })
+            if (this.$refs.form.validate()) {
+                try {
+                    await auth.register({
+                        "email": this.email,
+                        "password": this.password
+                    })
+                } catch (error) {
+                    this.error = error.response.data.error
+                }
+            }
+        },
+        clear () {
+            this.$refs.form.reset()
         }
     }
 }
 </script>
+
+
+<style>
+    .error{
+        color: red;
+    }
+    .register{
+        max-width: 30%;
+        margin: 10% auto;
+    }
+</style>
 
 
