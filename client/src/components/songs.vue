@@ -15,25 +15,15 @@
                             <div class="song-genre">
                                 {{song.genre}}
                             </div>
-                            <div class="youtubeID">
-                                {{song.youtubeID}}
-                            </div>
-                            <div class="song-lyrics">
-                                {{song.lyrics}}
-                            </div>
-                            <div class="song-tab">
-                                {{song.tab}}
-                            </div>
                             <div class="createdAt">
                                 {{song.createdAt}}
                             </div>
+                            <v-btn @click="navigateTo({name: 'song', params: { songId: song.id}})">View Song</v-btn>
                         </v-flex>
                         <v-flex xs6>
                             <div class="albumImageUrl">
                                 <img :src="song.albumImageUrl" alt="">
                             </div>
-                            
-                            
                         </v-flex>
                     </v-layout>
                 </div>

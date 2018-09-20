@@ -1,5 +1,5 @@
 <template>
-	<div class="white elevation-2">
+	<div class="white elevation-2" >
 		<v-toolbar flat dense class="cyan" dark>
 			<v-toolbar-title> {{title}} </v-toolbar-title>
             <slot name="action"/>
@@ -21,8 +21,8 @@
 
 <style>
     .white{
-        max-width: 60%;
+        max-width: 95%; 
         margin: 0 auto;
-        margin-top: 5%;
+        margin-top: 2%;
     }
 </style>
